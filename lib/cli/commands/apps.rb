@@ -475,6 +475,11 @@ module VMC::Cli::Command
 
       display 'Creating Application: ', false
 
+      port = ask("deploy port, enter 0 for not specify",
+                  :default => 0)
+      srun_port = ask("deploy srun_port, enter 0 for not specify",
+                  :default => 0)
+                  
       manifest = {
         :name => "#{appname}",
         :staging => {
@@ -488,6 +493,13 @@ module VMC::Cli::Command
         },
       }
 
+      if port
+        manifest[:port]=port
+      end
+      if srun_port
+        manifest[:srun_port]=srun_port
+      end
+      
       # Send the manifest to the cloud controller
       client.create_app(appname, manifest)
       display 'OK'.green
