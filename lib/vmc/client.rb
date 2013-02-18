@@ -81,8 +81,6 @@ class VMC::Client
     app = manifest.dup
     app[:name] = name
     app[:instances] ||= 1
-      
-    say("create app using config : "+app.dup)
     json_post(VMC::APPS_PATH, app)
   end
 
